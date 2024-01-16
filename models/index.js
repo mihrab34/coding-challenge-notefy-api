@@ -9,14 +9,23 @@ const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + '/../config/config.json')[env];
 const db = {};
 
-let sequelize;
+let sequelizeConfig;
+
 if (config.use_env_variable) {
-  sequelize = new Sequelize(process.env[config.use_env_variable], config);
-} else if (config.username) {
-  sequelize = new Sequelize(process.env.DB_DATABASE, process.env.DB_USERNAME, process.env.DB_PASSWORD, config);
+  sequelizeConfig = {
+    use_env_variable: config.use_env_variable,
+    dialect: config.dialect
+  };
 } else {
-  sequelize = new Sequelize(config.database, config.username, config.password, config);
+  sequelizeConfig = {
+    username: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE,
+    dialect: config.dialect
+  };
 }
+
+let sequelize = new Sequelize(sequelizeConfig);
 
 fs
   .readdirSync(__dirname)
