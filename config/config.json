@@ -2,8 +2,8 @@
   "development": {
     "username": "DB_USERNAME",
     "password": "DB_PASSWORD",
-    "host": "127.0.0.1",
-    "database": "notefy_api_development",
+    "host":  "127.0.0.1",
+    "database": "DB_DATABASE",
     "dialect": "postgres"
   },
   "test": {
@@ -14,12 +14,10 @@
     "dialect": "postgres"
   },
   "production": {
-    "use_env_variable": "DATABASE_URL",
-    "dialect": "postgres",
-    "dialectOptions": {
-      "ssl": {
-        "rejectUnauthorized": false
-      }
-    }
+    "username": "DB_USERNAME",
+    "password": "DB_PASSWORD",
+    "database": "DB_PASSWORD",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
   }
 }
