@@ -1,6 +1,6 @@
-const {Note} = require("../../models");
+const { Note } = require("../../models");
 
-const createNote = async(req, res) => {
+const createNote = async (req, res) => {
     try {
         // Convert title to lowercase
         req.body.title = req.body.title.toLowerCase();
@@ -13,36 +13,38 @@ const createNote = async(req, res) => {
     } catch (error) {
         if (error.name === 'SequelizeUniqueConstraintError') {
             return res.status(400).json({ error: 'Note title must be unique' });
-          } else {
+        } else {
             return res.status(500).json({ error: error.message });
-          }
+        }
     }
-    
+
 };
 
 const getAllNotes = async (req, res) => {
     try {
         const notes = await Note.findAll({})
-        if(notes) {
-            return res.status(200).json( {notes} );
+        if (notes) {
+            return res.status(200).json({ notes });
         }
     } catch (error) {
         return res.status(500).send(error.message);
     }
 };
 
-const updateNote = async (req, res) => {
+const updateNote = async (id, noteData) => {
     try {
-        const {id} = req.params;
-        const [updated] = await Note.update(req.body,
+        const [updated] = await Note.update(noteData,
             { where: { id: id } });
-        if(updated ){
-            const updatedNote = await Note.findOne({where: { id: updated}});
-            return res.status(200).json( {updatedNote} );
+        if (updated) {
+            const updatedNote = await Note.findOne({ where: { id: id } });
+            return res.status(204).json({
+                updatedNote
+            })
+        } else {
+            throw new Error('Note not found');
         }
-        throw new Error('Note not found');
     } catch (error) {
-        return res.status(500).send(error.message);
+        throw new Error(error.message);
     }
 };
 
