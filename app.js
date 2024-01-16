@@ -13,9 +13,9 @@ const app = express();
 const server = require('http').createServer(app);
 const io = new Server(server);
 
-app.use(express.json());
 app.use(cors())
 app.use(logger('dev'))
+app.use(express.json());
 
 app.use("/api", routes);
 
