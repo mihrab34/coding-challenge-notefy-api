@@ -11,8 +11,6 @@ module.exports = {
       },
       title: {
         type: Sequelize.STRING,
-        allowNull: false,
-        unique: true,
       },
       body: {
         type: Sequelize.TEXT
