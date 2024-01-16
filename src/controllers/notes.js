@@ -7,7 +7,8 @@ const createNote = async(req, res) => {
 
         const note = await Note.create(req.body)
         return res.status(201).json({
-            note,
+            message: "Note added successfully",
+            note
         });
     } catch (error) {
         if (error.name === 'SequelizeUniqueConstraintError') {
@@ -30,7 +31,23 @@ const getAllNotes = async (req, res) => {
     }
 };
 
+const updateNote = async (req, res) => {
+    try {
+        const {id} = req.params;
+        const [updated] = await Note.update(req.body,
+            { where: { id: id } });
+        if(updated ){
+            const updatedNote = await Note.findOne({where: { id: updated}});
+            return res.status(200).json( {updatedNote} );
+        }
+        throw new Error('Note not found');
+    } catch (error) {
+        return res.status(500).send(error.message);
+    }
+};
+
 module.exports = {
     createNote,
-    getAllNotes
+    getAllNotes,
+    updateNote,
 }
