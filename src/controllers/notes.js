@@ -46,8 +46,24 @@ const updateNote = async (req, res) => {
     }
 };
 
+const deleteNote = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const deleted = await Note.destroy({
+            where: { id: id }
+        });
+        if (deleted) {
+            return res.status(204).send("Note deleted");
+        }
+        throw new Error("Note not found");
+    } catch (error) {
+        return res.status(500).send(error.message);
+    }
+};
+
 module.exports = {
     createNote,
     getAllNotes,
     updateNote,
+    deleteNote
 }
