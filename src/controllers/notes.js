@@ -1,5 +1,6 @@
 const { Note } = require("../../models");
 
+// Adds a new note to the Database
 const createNote = async (req, res) => {
     try {
         // Convert title to lowercase
@@ -20,6 +21,7 @@ const createNote = async (req, res) => {
 
 };
 
+// Gets all notes from the database
 const getAllNotes = async (req, res) => {
     try {
         const notes = await Note.findAll({})
@@ -31,6 +33,7 @@ const getAllNotes = async (req, res) => {
     }
 };
 
+// Update note based on data sent from the socket.io server
 const updateNote = async (id, noteData) => {
     try {
         const [updated] = await Note.update(noteData,
@@ -48,6 +51,7 @@ const updateNote = async (id, noteData) => {
     }
 };
 
+// delete notes
 const deleteNote = async (req, res) => {
     try {
         const { id } = req.params;

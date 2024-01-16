@@ -1,7 +1,7 @@
 {
   "development": {
-    "username": "postgres",
-    "password": "admin23",
+    "username": "DB_USERNAME",
+    "password": "DB_PASSWORD",
     "host": "127.0.0.1",
     "database": "notefy_api_development",
     "dialect": "postgres"

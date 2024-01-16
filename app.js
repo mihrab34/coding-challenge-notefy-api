@@ -1,14 +1,21 @@
+require('dotenv').config();
+
+const cors = require("cors");
 const express = require("express");
+const logger = require('morgan');
 const { Server } = require('socket.io');
 const routes = require("./src/routes/noteRouter");
 const controllers = require("./src/controllers/notes");
-const PORT = 5000;
+
+const PORT = process.env.PORT || 5000;
 
 const app = express();
 const server = require('http').createServer(app);
 const io = new Server(server);
 
 app.use(express.json());
+app.use(cors())
+app.use(logger('dev'))
 
 app.use("/api", routes);
 
