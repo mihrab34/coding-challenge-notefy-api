@@ -13,12 +13,11 @@ const createNote = async (req, res) => {
         });
     } catch (error) {
         if (error.name === 'SequelizeUniqueConstraintError') {
-            return res.status(400).json({ error: 'Note title must be unique' });
+            return res.status(400).json({ errorMessage: 'Note title must be unique' });
         } else {
             return res.status(500).json({ error: error.message });
         }
     }
-
 };
 
 // Gets all notes from the database
