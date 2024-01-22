@@ -33,15 +33,13 @@ const getAllNotes = async (req, res) => {
 };
 
 // Update note based on data sent from the socket.io server
-const updateNote = async (id, noteData) => {
+const updateNote = async (res, id, noteData) => {
     try {
-        const [updated] = await Note.update(noteData,
-            { where: { id: id } });
+        const [updated] = await Note.update(noteData, { where: { id: id } });
+
         if (updated) {
             const updatedNote = await Note.findOne({ where: { id: id } });
-            return res.status(204).json({
-                updatedNote
-            })
+            return res.status(200).json({ updatedNote })
         } else {
             throw new Error('Note not found');
         }

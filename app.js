@@ -32,11 +32,11 @@ const io = new Server(server, {
 io.on('connection', (socket) => {
     console.log('A user connected');
 
-    socket.on('noteUpdated', async (data) => {
+    socket.on('noteUpdated', async (data, res) => {
         try {
             const { id, noteData } = data;
             // Call the updateNote function to handle the update
-            const updatedNote = await controllers.updateNote(id, noteData);
+            const updatedNote = await controllers.updateNote(res,id, noteData);
             socket.emit('noteUpdated', updatedNote);
         } catch (error) {
             console.error(error);
