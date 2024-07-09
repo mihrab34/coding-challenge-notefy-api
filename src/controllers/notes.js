@@ -3,11 +3,6 @@ const { Note } = require("../../models");
 // Adds a new note to the Database
 const createNote = async (req, res) => {
     try {
-        // Check if title exists and is not empty
-        if (!req.body.title || req.body.title.trim() === '') {
-            return res.status(400).json({ errorMessage: 'Title is required' });
-        }
-
         // Convert title to lowercase
         req.body.title = req.body.title.toLowerCase().trim();
 
