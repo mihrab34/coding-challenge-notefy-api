@@ -1,5 +1,4 @@
 'use strict';
-
 const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
@@ -22,10 +21,8 @@ if (process.env.DATABASE_URL) {
     }
   });
 } else {
-  sequelize = new Sequelize(sequelizeConfig);
+  sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
-
-let sequelize = new Sequelize(sequelizeConfig);
 
 fs
   .readdirSync(__dirname)
