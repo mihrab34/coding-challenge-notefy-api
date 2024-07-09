@@ -3,10 +3,15 @@ const { Note } = require("../../models");
 // Adds a new note to the Database
 const createNote = async (req, res) => {
     try {
-        // Convert title to lowercase
-        req.body.title = req.body.title.toLowerCase();
+        // Check if title exists and is not empty
+        if (!req.body.title || req.body.title.trim() === '') {
+            return res.status(400).json({ errorMessage: 'Title is required' });
+        }
 
-        const note = await Note.create(req.body)
+        // Convert title to lowercase
+        req.body.title = req.body.title.toLowerCase().trim();
+
+        const note = await Note.create(req.body);
         return res.status(201).json({
             message: "Note added successfully",
             note
@@ -15,7 +20,8 @@ const createNote = async (req, res) => {
         if (error.name === 'SequelizeUniqueConstraintError') {
             return res.status(400).json({ errorMessage: 'Note title must be unique' });
         } else {
-            return res.status(500).json({ error: error.message });
+            console.error('Error creating note:', error);
+            return res.status(500).json({ error: 'An error occurred while creating the note' });
         }
     }
 };
