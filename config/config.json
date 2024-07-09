@@ -5,13 +5,6 @@
     "database": "DB_DATABASE",
     "dialect": "postgres"
   },
-  "test": {
-    "username": "root",
-    "password": null,
-    "host": "127.0.0.1",
-    "database": "notefy_api_development",
-    "dialect": "postgres"
-  },
   "production": {
     "use_env_variable": "DATABASE_URL",
     "dialect": "postgres",
