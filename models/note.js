@@ -8,6 +8,9 @@ module.exports = (sequelize, DataTypes) => {
         unique: true,
       },
       body: DataTypes.TEXT,
-    }) 
+    },
+    {
+    tableName: 'Notes'
+  });
   return Note;
 };
